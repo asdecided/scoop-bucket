@@ -1,0 +1,37 @@
+name: Validate Scoop manifest
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  manifest:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate manifest and release archive
+        shell: pwsh
+        run: |
+          $manifest = Get-Content bucket/asdecided.json -Raw | ConvertFrom-Json
+          $package = Join-Path $env:RUNNER_TEMP 'asdecided.zip'
+          $expanded = Join-Path $env:RUNNER_TEMP 'asdecided'
+
+          Invoke-WebRequest -Uri $manifest.architecture.'64bit'.url -OutFile $package
+
+          $actualHash = (Get-FileHash $package -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualHash -ne $manifest.architecture.'64bit'.hash) {
+            throw "SHA-256 mismatch: expected $($manifest.architecture.'64bit'.hash), got $actualHash"
+          }
+
+          Expand-Archive -Path $package -DestinationPath $expanded
+          foreach ($binary in $manifest.bin) {
+            $path = Join-Path $expanded $binary
+            if (-not (Test-Path $path -PathType Leaf)) {
+              throw "Missing declared binary: $binary"
+            }
+          }
