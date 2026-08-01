@@ -1,12 +1,12 @@
 {
-    "version": "0.26.1",
+    "version": "0.26.2",
     "description": "Local-first engineering decisions for agents, with a native CLI and read-only MCP server",
     "homepage": "https://asdecided.com/",
     "license": "Apache-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/asdecided/core/releases/download/v0.26.1/asdecided-x86_64-pc-windows-msvc.zip",
-            "hash": "ee70b6b24c5221d46f66f64850b3cbbcd9393bfbcba07bb4218792de86628671"
+            "url": "https://github.com/asdecided/core/releases/download/v0.26.2/asdecided-x86_64-pc-windows-msvc.zip",
+            "hash": "2f95893afd7516afe812112582e5b9b6fb01defc08eb1f0a86656527d5362fb1"
         }
     },
     "bin": [
