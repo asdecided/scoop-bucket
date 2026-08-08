@@ -1,5 +1,7 @@
 # AsDecided Scoop bucket
 
+[Install guide](https://asdecided.com/docs/vendor/core/quickstart/) · [Product site](https://asdecided.com/) · [Release record](https://asdecided.com/changelog/v0.26.2)
+
 Official [Scoop](https://scoop.sh/) manifests for AsDecided.
 
 ## Install
